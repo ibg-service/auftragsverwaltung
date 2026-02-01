@@ -1,4 +1,5 @@
-// Speichere als auftrag.js
+import { saveOrder } from './shared.js';
+
 document.getElementById('work-todo').addEventListener('blur', () => {
   const container = document.getElementById('tasks-checklist');
   container.innerHTML = '';
@@ -56,13 +57,7 @@ document.getElementById('save-btn').addEventListener('click', async () => {
   });
 
   try {
-    const response = await fetch('HIER_IHRE_GOOGLE_SCRIPT_URL', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-
-    const result = await response.json();
+    const result = await saveOrder(data);
     if (result.result === 'success') {
       alert('✓ Auftrag erfolgreich gespeichert!');
     } else {
