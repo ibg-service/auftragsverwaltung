@@ -1,82 +1,98 @@
+/* Font einbinden */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f0f2f5;
-  padding: 2rem;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background: #f3f3f3;
+  color: #333;
+  line-height: 1.6;
 }
 
-.container {
-  max-width: 600px;
-  margin: auto;
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-header h1 {
-  margin-bottom: 0.2rem;
-  color: #005293;
-}
-
-label {
-  display: block;
-  margin-top: 1.2rem;
-  font-weight: bold;
+h1, h2, h3 {
   color: #007bc0;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
-input, textarea {
+hr.ibg-divider {
+  border: none;
+  border-top: 3px solid #e37222;
+  margin: 0.5rem 0 1.5rem;
+}
+
+/* Formular-Container */
+.auftrag-form-container {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+/* Grid für Formulare */
+.auftrag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Input-Felder */
+.ibg-input,
+.ibg-textarea {
   width: 100%;
   padding: 0.8rem;
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  margin-top: 0.4rem;
   font-size: 1rem;
+  margin-top: 0.3rem;
+  box-sizing: border-box;
 }
 
-button {
-  margin-top: 2rem;
+.ibg-input:focus,
+.ibg-textarea:focus {
+  border-color: #007bc0;
+  outline: none;
+}
+
+.ibg-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Labels */
+label {
+  display: block;
+  font-weight: 500;
+}
+
+/* Buttons */
+.ibg-submit-button,
+.ibg-button {
   background: #007bc0;
   color: white;
   padding: 1rem 2rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  margin-top: 1rem;
 }
 
-button:hover {
+.ibg-submit-button:hover,
+.ibg-button:hover {
   background: #005293;
 }
 
-.task-checkbox-item {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 0.5rem;
+.ibg-button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
 }
 
-.progress-bar-container {
-  background: #eee;
-  height: 20px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.progress-bar-fill {
-  background: linear-gradient(to right, #28a745, #34c759);
-  height: 100%;
-  text-align: center;
-  color: white;
-  font-weight: bold;
-}
-
-.ibg-divider {
-  border: none;
-  border-top: 3px solid #e37222;
-  margin: 0.5rem 0 1.5rem;
-}
-
+/* Checkboxliste */
 .checkbox-list {
   margin-top: 1rem;
   padding-left: 1rem;
@@ -87,27 +103,29 @@ button:hover {
   margin-bottom: 0.5rem;
 }
 
+/* Tabellen */
 .ibg-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
 }
 
-.ibg-table th, .ibg-table td {
+.ibg-table th,
+.ibg-table td {
   border: 1px solid #ccc;
-  padding: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  text-align: left;
 }
 
-.ibg-button {
-  background: #007bc0;
+.ibg-table th {
+  background: #e37222;
   color: white;
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 0.5rem;
 }
 
-.ibg-button:hover {
-  background: #005293;
+.ibg-table td input {
+  width: 100%;
+  padding: 0.4rem;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
