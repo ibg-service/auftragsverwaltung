@@ -1,7 +1,7 @@
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbywUnQEwRdTXnozlCK1-PJlIlfLKbHYtsy14HQPA9qZFKxcUYU2MaNq4MMnmzH4Qhr7/exec';
 
-export async function loadOrders() {
-  const res = await fetch(SHEET_URL);
+export async function loadOrders(mode = 'all') {
+  const res = await fetch(`${SHEET_URL}?mode=${mode}`);
   const data = await res.json();
   return Array.isArray(data) ? data : [];
 }
