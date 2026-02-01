@@ -1,86 +1,82 @@
-import { loadOrders, saveOrder, generateVorgang } from './shared.js';
+import { saveOrder, generateVorgang } from './shared.js';
 
-let vorgang = '';
-let existingOrder = null;
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('auftrag-form');
+  const vorgangFeld = document.getElementById('vorgang');
+  const eingangFeld = document.getElementById('eingangsdatum');
+  const arbeitenInput = document.getElementById('arbeiten-input');
+  const checkboxContainer = document.getElementById('arbeiten-checkboxes');
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const params = new URLSearchParams(location.search);
-  vorgang = params.get('vorgang');
+  // 1. Vorgangsnummer generieren
+  vorgangFeld.value = generateVorgang();
 
-  const vorgangLabel = document.getElementById('vorgang-label');
-  const orders = await loadOrders();
+  // 2. Eingangsdatum auf heute setzen
+  const heute = new Date().toISOString().split('T')[0];
+  eingangFeld.value = heute;
 
-  if (!vorgang) {
-    vorgang = generateVorgang(orders);
-  } else {
-    existingOrder = orders.find(o => o.vorgang === vorgang);
-  }
-
-  vorgangLabel.textContent = vorgang;
-
-  if (existingOrder) {
-    fillForm(existingOrder);
-  }
-
-  document.getElementById('save-btn').addEventListener('click', async () => {
-    const data = collectData();
-    await saveOrder(data);
-    alert('✅ Auftrag gespeichert!');
-    location.href = './liste.html';
+  // 3. Text zu Checkboxen – bei Verlassen des Textfelds
+  arbeitenInput.addEventListener('blur', () => {
+    const zeilen = arbeitenInput.value.split('\n').map(z => z.trim()).filter(z => z);
+    checkboxContainer.innerHTML = ''; // Reset
+    zeilen.forEach((text, i) => {
+      const label = document.createElement('label');
+      label.innerHTML = `<input type="checkbox" name="task_${i}" data-task="${text}"> ${text}`;
+      checkboxContainer.appendChild(label);
+    });
   });
 
-  document.getElementById('work-todo').addEventListener('input', renderTasks);
-});
-
-function fillForm(order) {
-  document.getElementById('customer').value = order.customer;
-  document.getElementById('subject').value = order.subject;
-  document.getElementById('error-description').value = order.errorDescription;
-  document.getElementById('work-todo').value = order.workTodo;
-  renderTasks();
-}
-
-function renderTasks() {
-  const container = document.getElementById('tasks-checklist-container');
-  container.innerHTML = '';
-  const lines = document.getElementById('work-todo').value.split('\n').filter(l => l.trim());
-
-  lines.forEach((task, i) => {
-    const div = document.createElement('div');
-    div.className = 'task-checkbox-item';
-    const input = document.createElement('input');
-    input.type = 'checkbox';
-    input.id = `task-${i}`;
-    input.checked = existingOrder?.workTasks?.[i]?.completed || false;
-
-    const label = document.createElement('label');
-    label.htmlFor = input.id;
-    label.textContent = task;
-
-    div.appendChild(input);
-    div.appendChild(label);
-    container.appendChild(div);
-  });
-}
-
-function collectData() {
-  const lines = document.getElementById('work-todo').value.split('\n').filter(l => l.trim());
-  const workTasks = lines.map((task, i) => ({
-    task: task,
-    completed: document.getElementById(`task-${i}`)?.checked || false
-  }));
-
-  const allDone = workTasks.every(t => t.completed);
-
-  return {
-    vorgang,
-    customer: document.getElementById('customer').value.trim(),
-    subject: document.getElementById('subject').value.trim(),
-    errorDescription: document.getElementById('error-description').value.trim(),
-    workTodo: document.getElementById('work-todo').value.trim(),
-    workTasks,
-    status: {
-      alleAufgabenErledigt: allDone
-    }
+  // 4. Zeile zur Ersatzteiltabelle hinzufügen
+  window.addErsatzteilRow = function() {
+    const tbody = document.querySelector('#ersatzteile-table tbody');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td><input type="text" name="artikelnummer" /></td>
+      <td><input type="text" name="bezeichnung" /></td>
+      <td><input type="number" name="anzahl" min="1" value="1" /></td>
+      <td><button type="button" onclick="this.closest('tr').remove()">🗑</button></td>
+    `;
+    tbody.appendChild(row);
   };
-}
+
+  // 5. Formular absenden
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    // 6. Aufgaben aus Checkboxen
+    const aufgaben = [];
+    checkboxContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+      const aufgabe = {
+        task: checkbox.dataset.task,
+        completed: checkbox.checked
+      };
+      aufgaben.push(aufgabe);
+    });
+
+    // 7. Ersatzteile aus Tabelle
+    const ersatzteile = [];
+    document.querySelectorAll('#ersatzteile-table tbody tr').forEach(row => {
+      const inputs = row.querySelectorAll('input');
+      ersatzteile.push({
+        artikelnummer: inputs[0].value,
+        bezeichnung: inputs[1].value,
+        anzahl: parseInt(inputs[2].value || 0)
+      });
+    });
+
+    // 8. Kombiniertes Objekt
+    const auftrag = {
+      ...data,
+      vorgang: vorgangFeld.value,
+      aufgaben,
+      ersatzteile
+    };
+
+    // 9. Speichern & Weiterleiten
+    await saveOrder(auftrag);
+    alert("✅ Auftrag gespeichert!");
+    window.location.href = 'liste.html';
+  });
+});
