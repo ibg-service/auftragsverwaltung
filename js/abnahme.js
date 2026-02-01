@@ -3,8 +3,9 @@ import { loadOrders, saveOrder } from './shared.js';
 let selectedOrder = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const res = await fetch(`https://script.google.com/macros/s/AKfycbywUnQEwRdTXnozlCK1-PJlIlfLKbHYtsy14HQPA9qZFKxcUYU2MaNq4MMnmzH4Qhr7/exec?mode=abnahme`);
-  const orders = await res.json();
+  import { loadOrders, saveOrder } from './shared.js';
+  const orders = await loadOrders('abnahme');
+
 
   const ul = document.getElementById('ready-orders');
   if (!orders.length) {
