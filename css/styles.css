@@ -70,3 +70,44 @@ button:hover {
   color: white;
   font-weight: bold;
 }
+
+.ibg-divider {
+  border: none;
+  border-top: 3px solid #e37222;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.checkbox-list {
+  margin-top: 1rem;
+  padding-left: 1rem;
+}
+
+.checkbox-list label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.ibg-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.ibg-table th, .ibg-table td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+}
+
+.ibg-button {
+  background: #007bc0;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.ibg-button:hover {
+  background: #005293;
+}
