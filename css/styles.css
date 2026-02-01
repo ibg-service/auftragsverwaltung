@@ -55,3 +55,18 @@ button:hover {
   gap: 0.6rem;
   margin-top: 0.5rem;
 }
+
+.progress-bar-container {
+  background: #eee;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background: linear-gradient(to right, #28a745, #34c759);
+  height: 100%;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
