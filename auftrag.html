@@ -2,35 +2,86 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reparaturauftrag – IBG HydroTech</title>
+  <title>Neuen Reparaturauftrag anlegen</title>
   <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script type="module" src="./js/auftrag.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1><i class="fas fa-tools"></i> Reparaturauftrag</h1>
-      <p>Vorgang: <span id="vorgang-label">Wird geladen...</span></p>
-    </header>
+  <div class="auftrag-form-container">
+    <form id="auftrag-form" class="auftrag-form">
 
-    <main>
-      <label>Kunde:</label>
-      <input type="text" id="customer">
+      <!-- Auftragsstammdaten -->
+      <h2><i class="fas fa-user"></i> Auftragsstammdaten</h2>
+      <hr class="ibg-divider">
 
-      <label>Betrifft:</label>
-      <input type="text" id="subject">
+      <div class="auftrag-grid">
+        <label><i class="fas fa-hashtag"></i> Vorgang:
+          <input class="ibg-input" type="text" name="vorgang" id="vorgang" readonly>
+        </label>
 
-      <label>Fehlerbeschreibung:</label>
-      <textarea id="error-description"></textarea>
+        <label><i class="fas fa-user-tie"></i> Kunde:
+          <input class="ibg-input" type="text" name="customer" required>
+        </label>
 
-      <label>Aufgaben (eine pro Zeile):</label>
-      <textarea id="work-todo" placeholder="z.B. Motor prüfen&#10;Kabel tauschen"></textarea>
+        <label><i class="fas fa-calendar-alt"></i> Eingangsdatum:
+          <input class="ibg-input" type="date" name="eingangsdatum" id="eingangsdatum" required>
+        </label>
 
-      <div id="tasks-checklist-container" class="checklist-box"></div>
+        <label><i class="fas fa-file-alt"></i> Betreff:
+          <input class="ibg-input" type="text" name="subject" required>
+        </label>
 
-      <button id="save-btn">💾 Speichern</button>
-    </main>
+        <label><i class="fas fa-barcode"></i> Seriennummer:
+          <input class="ibg-input" type="text" name="serialNumber">
+        </label>
+
+        <label><i class="fas fa-screwdriver-wrench"></i> Name:
+          <input class="ibg-input" type="text" name="technikerName">
+        </label>
+
+        <label><i class="fas fa-clock"></i> Stunden:
+          <input class="ibg-input" type="text" name="stunden">
+        </label>
+      </div>
+
+      <!-- Fehleranalyse -->
+      <h2><i class="fas fa-triangle-exclamation"></i> Fehleranalyse</h2>
+      <hr class="ibg-divider">
+
+      <label><i class="fas fa-clipboard-list"></i> Fehlerbeschreibung:
+        <textarea class="ibg-textarea" name="problem" rows="4" required></textarea>
+      </label>
+
+      <!-- Durchzuführende Arbeiten -->
+      <h2><i class="fas fa-tasks"></i> Durchzuführende Arbeiten</h2>
+      <hr class="ibg-divider">
+
+      <label><i class="fas fa-pencil-alt"></i> Aufgaben (jede Zeile = Aufgabe):
+        <textarea class="ibg-textarea" id="arbeiten-input" rows="4" placeholder="z. B. Motor prüfen&#10;Kabel tauschen"></textarea>
+      </label>
+      <div id="arbeiten-checkboxes" class="checkbox-list"></div>
+
+      <!-- Ersatzteile -->
+      <h2><i class="fas fa-tools"></i> Verwendete Ersatzteile</h2>
+      <hr class="ibg-divider">
+
+      <table class="ibg-table" id="ersatzteile-table">
+        <thead>
+          <tr>
+            <th>Artikelnummer</th>
+            <th>Bezeichnung</th>
+            <th>Anzahl</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button type="button" class="ibg-button" onclick="addErsatzteilRow()">➕ Zeile hinzufügen</button>
+
+      <br><br>
+      <button type="submit" class="ibg-submit-button">💾 Auftrag speichern</button>
+    </form>
   </div>
 </body>
 </html>
