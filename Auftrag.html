@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reparaturauftrag – IBG HydroTech</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script type="module" src="./js/auftrag.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-tools"></i> Reparaturauftrag</h1>
+      <p>Vorgang: <span id="vorgang-label">Wird geladen...</span></p>
+    </header>
+
+    <main>
+      <label>Kunde:</label>
+      <input type="text" id="customer">
+
+      <label>Betrifft:</label>
+      <input type="text" id="subject">
+
+      <label>Fehlerbeschreibung:</label>
+      <textarea id="error-description"></textarea>
+
+      <label>Aufgaben (eine pro Zeile):</label>
+      <textarea id="work-todo" placeholder="z.B. Motor prüfen&#10;Kabel tauschen"></textarea>
+
+      <div id="tasks-checklist-container" class="checklist-box"></div>
+
+      <button id="save-btn">💾 Speichern</button>
+    </main>
+  </div>
+</body>
+</html>
