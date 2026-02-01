@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Auftragsliste – IBG HydroTech</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script type="module" src="./js/liste.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📋 Auftragsliste</h1>
+      <a href="index.html">← Zurück zur Startseite</a>
+    </header>
+
+    <div style="margin-top: 2rem;">
+      <input id="filter-vorgang" placeholder="🔍 Vorgang filtern..." />
+      <input id="filter-customer" placeholder="🔍 Kunde filtern..." />
+    </div>
+
+    <table style="width:100%; margin-top: 2rem;">
+      <thead>
+        <tr>
+          <th>Vorgang</th>
+          <th>Kunde</th>
+          <th>Betrifft</th>
+          <th>Fortschritt</th>
+          <th>Aktion</th>
+        </tr>
+      </thead>
+      <tbody id="orders-body"></tbody>
+    </table>
+  </div>
+</body>
+</html>
