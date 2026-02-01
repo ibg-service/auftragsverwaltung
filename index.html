@@ -1,108 +1,29 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>IBG HydroTech – Startseite</title>
-  <link rel="stylesheet" href="./css/styles.css">
+  <meta charset="UTF-8" />
+  <title>IBG Reparaturportal</title>
+  <link rel="stylesheet" href="./css/styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #f0f2f5, #e6e9f0);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1 {
-      color: #005293;
-      margin-bottom: 1rem;
-    }
-    .nav-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      width: 100%;
-      max-width: 800px;
-    }
-    .nav-card {
-      background: white;
-      border: 2px solid #007bc0;
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-      transition: 0.3s;
-      cursor: pointer;
-    }
-    .nav-card:hover {
-      background: #e6f2fa;
-      transform: translateY(-4px);
-    }
-    .nav-card i {
-      font-size: 2rem;
-      color: #e37222;
-      margin-bottom: 1rem;
-    }
-    .vorgang-box {
-      margin-top: 3rem;
-      text-align: center;
-    }
-    .vorgang-box input {
-      padding: 1rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 2px solid #ccc;
-      width: 250px;
-      margin-right: 1rem;
-    }
-    .vorgang-box button {
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      background: #007bc0;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .vorgang-box button:hover {
-      background: #005293;
-    }
-  </style>
 </head>
 <body>
-  <h1><i class="fas fa-tools"></i> IBG HydroTech Serviceportal</h1>
-  <p>Wähle eine Aktion:</p>
+  <div class="auftrag-form-container">
+    <h1><i class="fas fa-tools"></i> IBG Reparaturverwaltung</h1>
+    <hr class="ibg-divider">
 
-  <div class="nav-grid" style="margin-top: 2rem;">
-    <div class="nav-card" onclick="location.href='auftrag.html'">
-      <i class="fas fa-plus-circle"></i>
-      <h3>Neuen Reparaturauftrag anlegen</h3>
-    </div>
-    <div class="nav-card" onclick="location.href='liste.html'">
-      <i class="fas fa-list"></i>
-      <h3>Auftragsliste öffnen</h3>
-    </div>
-    <div class="nav-card" onclick="location.href='abnahme.html'">
-      <i class="fas fa-check-circle"></i>
-      <h3>Abnahmeprotokoll erstellen</h3>
+    <div class="auftrag-grid">
+      <button class="ibg-button" onclick="location.href='auftrag.html'">
+        <i class="fas fa-plus-circle"></i> Neuen Reparaturauftrag anlegen
+      </button>
+
+      <button class="ibg-button" onclick="location.href='liste.html'">
+        <i class="fas fa-list-ul"></i> Auftragsliste öffnen
+      </button>
+
+      <button class="ibg-button" onclick="location.href='abnahme.html'">
+        <i class="fas fa-file-signature"></i> Abnahmeprotokoll erstellen
+      </button>
     </div>
   </div>
-
-  <div class="vorgang-box">
-    <h3>Direkt zu einem Vorgang springen</h3>
-    <input type="text" id="vorgang-input" placeholder="z.B. 2026-002">
-    <button onclick="gotoVorgang()">Öffnen</button>
-  </div>
-
-  <script>
-    function gotoVorgang() {
-      const vorgang = document.getElementById('vorgang-input').value.trim();
-      if (!vorgang) {
-        alert("Bitte Vorgangsnummer eingeben");
-        return;
-      }
-      window.location.href = `auftrag.html?vorgang=${encodeURIComponent(vorgang)}`;
-    }
-  </script>
 </body>
 </html>
