@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Abnahmeprotokoll – IBG HydroTech</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script type="module" src="./js/abnahme.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>✅ Abnahmeprotokoll</h1>
+      <a href="index.html">← Zurück zur Startseite</a>
+    </header>
+
+    <div id="select-section">
+      <h3>Fertige Aufträge:</h3>
+      <ul id="ready-orders"></ul>
+    </div>
+
+    <div id="form-section" style="display:none; margin-top:2rem;">
+      <h3>Abnahme für Vorgang: <span id="abnahme-vorgang"></span></h3>
+      <label>Prüfer:</label>
+      <input type="text" id="abnahme-pruefer">
+      <label>Datum:</label>
+      <input type="date" id="abnahme-datum">
+      <label>Anmerkungen:</label>
+      <textarea id="abnahme-anmerkung"></textarea>
+      <button id="save-abnahme-btn">📄 Abnahme speichern</button>
+    </div>
+  </div>
+</body>
+</html>
